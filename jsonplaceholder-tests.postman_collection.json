@@ -2,50 +2,83 @@
   "info": {
     "_postman_id": "daaba224-2de7-4342-918c-bf37ce2cf0d8",
     "name": "JSONPlaceholder Tests",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "53466433",
-    "_collection_link": "https://go.postman.co/collection/53466433-daaba224-2de7-4342-918c-bf37ce2cf0d8?source=collection_link"
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
     {
-      "name": "Request 1",
+      "name": "GET Request 1 - Single User",
       "request": {
         "method": "GET",
-        "header": []
+        "url": "https://jsonplaceholder.typicode.com/users/1"
       },
-      "response": []
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": ["pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});"]
+        }
+      }]
     },
     {
-      "name": "Request 2",
+      "name": "GET Request 2 - All Posts",
       "request": {
         "method": "GET",
-        "header": []
+        "url": "https://jsonplaceholder.typicode.com/posts"
       },
-      "response": []
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": ["pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});"]
+        }
+      }]
     },
     {
-      "name": "Request 3",
+      "name": "POST Request 3 - Create Post",
       "request": {
-        "method": "GET",
-        "header": []
+        "method": "POST",
+        "url": "https://jsonplaceholder.typicode.com/posts",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Мой первый пост\",\n  \"body\": \"Это тестовый пост для обучения автоматизации\",\n  \"userId\": 1\n}",
+          "options": { "raw": { "language": "json" } }
+        }
       },
-      "response": []
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": ["pm.test(\"Status code is 201\", function () {\n    pm.response.to.have.status(201);\n});"]
+        }
+      }]
     },
     {
-      "name": "Request 4",
+      "name": "PUT Request 4 - Update Post",
       "request": {
-        "method": "GET",
-        "header": []
+        "method": "PUT",
+        "url": "https://jsonplaceholder.typicode.com/posts/1",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Обновлённый заголовок\",\n  \"body\": \"Текст был изменён\",\n  \"userId\": 1\n}",
+          "options": { "raw": { "language": "json" } }
+        }
       },
-      "response": []
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": ["pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});"]
+        }
+      }]
     },
     {
-      "name": "Request 5",
+      "name": "GET Request 5 - All Users",
       "request": {
         "method": "GET",
-        "header": []
+        "url": "https://jsonplaceholder.typicode.com/users"
       },
-      "response": []
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": ["pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});"]
+        }
+      }]
     }
   ]
 }
