@@ -1,0 +1,36 @@
+name: Postman API Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  newman:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Newman
+        run: npm install -g newman
+
+      - name: Run Postman collection with CSV data
+        run: |
+          newman run "week2/day9/TEST JSONPlaceholder.postman_collection.json" \
+            -e "week2/day9/JSONPlaceholder Dev.postman_environment.json" \
+            --iteration-data "week2/day9/users.csv" \
+            --reporters junit --reporter-junit-export report.xml
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: newman-report
+          path: report.xml
