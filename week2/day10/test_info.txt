@@ -1,1 +1,2 @@
 ﻿Это текст из ветки feature/change-text
+﻿Это текст из ветки main
