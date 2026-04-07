@@ -1,0 +1,1 @@
+Этот файл создан в ветке feature/postman-enhancement для демонстрации Pull Request.
