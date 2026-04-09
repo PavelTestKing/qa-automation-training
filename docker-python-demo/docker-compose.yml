@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: docker-postgres-compose
+    environment:
+      POSTGRES_USER: docker_user
+      POSTGRES_PASSWORD: docker_pass
+      POSTGRES_DB: docker_test_db
+    ports:
+      - "5434:5432"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - my-network-compose
+
+  app:
+    image: python-db-client:latest
+    container_name: python-app
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: docker_test_db
+      DB_USER: docker_user
+      DB_PASS: docker_pass
+    networks:
+      - my-network-compose
+    command: python app.py
+
+networks:
+  my-network-compose:
